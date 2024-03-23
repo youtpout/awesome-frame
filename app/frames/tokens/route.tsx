@@ -12,28 +12,30 @@ const handleRequest = frames(async (ctx) => {
   try {
     let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
 
+    let fid: number | undefined = ctx.message?.castId?.fid;
 
     console.log("message", ctx.message);
 
     var url = new URL(
-      "/api/token",
+      "/api/token?fid=" + fid,
       vercelURL() || "http://localhost:3000"
     )
     const callApi = await fetch(url);
     tokens = await callApi.json();
     console.log("tokens", tokens);
 
-    const listItems = tokens.map((data) =>
-      <li key={data?.tokenAddress}>{data?.name}</li>
+    const listItems = tokens.map((data, index) =>
+      <div key={index} tw="flex flex-row justify-between"> <span>{index + 1}°</span> <span>{data?.amount} {data?.symbol}</span></div>
     );
 
 
     return {
       image: (
         <div tw="flex flex-col">
-          <ul tw="flex flex-col">
+          <span>List</span>
+          <div tw="flex flex-col">
             {listItems}
-          </ul>
+          </div>
         </div>
       ),
       buttons: [
@@ -42,9 +44,14 @@ const handleRequest = frames(async (ctx) => {
           target="/"
         >
           ← back
+        </Button>,
+        <Button
+          action="post"
+        >
+          More info
         </Button>
       ],
-      textInput: "Action",
+      textInput: "Select token number",
       accepts: [{
         id: 'farcaster',
         version: 'vNext'
@@ -69,6 +76,7 @@ const handleRequest = frames(async (ctx) => {
         >
           ← back
         </Button>
+
       ],
       textInput: "Action",
       accepts: [{
