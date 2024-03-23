@@ -1,50 +1,25 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-import {
-  init, getFarcasterUserERC20Balances,
-  FarcasterUserERC20BalancesInput,
-  FarcasterUserERC20BalancesOutput,
-  TokenBlockchain,
-  FarcasterUserERC20BalancesOutputData,
-} from "@airstack/frames";
-import { frames } from "../frames";
 
-init(process.env.AIRSTACK_API_KEY || "");
+import { frames } from "../frames";
+import { vercelURL } from "../../utils";
+import { FarcasterUserERC20BalancesOutputData } from "@airstack/frames";
+
+
 const totalPages = 5;
 
 const handleRequest = frames(async (ctx) => {
   const pageIndex = Number(ctx.searchParams.pageIndex || 0);
 
   let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
-  // try {
-  //   const input: FarcasterUserERC20BalancesInput = {
-  //     fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
-  //     chains: [
-  //       TokenBlockchain.Ethereum,
-  //       TokenBlockchain.Polygon,
-  //       TokenBlockchain.Base,
-  //       TokenBlockchain.Zora,
-  //     ],
-  //     limit: 50,
-  //   };
-  //   console.time("token");
-  //   const {
-  //     data,
-  //     error,
-  //     hasNextPage,
-  //     hasPrevPage,
-  //     getNextPage,
-  //     getPrevPage,
-  //   }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
-  //     input
-  //   );
-  //   console.timeEnd("token");
-  //   tokens = data! || [];
-  //   console.log(data);
-  // } catch (error) {
 
-  //   console.log(error);
-  // }
+  var url = new URL(
+    "/api/token",
+    vercelURL() || "http://localhost:3000"
+  )
+  const callApi = await fetch(url);
+  tokens = await callApi.json();
+  console.log("tokens", tokens);
 
   const listItems = tokens.map((data) =>
     <li key={data?.tokenAddress}>{data?.name}</li>
