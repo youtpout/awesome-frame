@@ -29,45 +29,31 @@ const handleRequest = frames(async (ctx) => {
     address = "";
   }
 
-  let textInput = "";
 
-  let buttons = [
-    <Button
-      action="post"
-      target={{ query: { disconnect: 'false' } }}
-    >
-      Connect
-    </Button>];
-  if (address) {
-    buttons = [
-      <Button
+  if (!address) {
+    return {
+      image: (
+        <div tw="flex flex-col">
+          👛 Connect your wallet to use the app or specify a wallet
+        </div>
+      ),
+      textInput: "Wallet address",
+      buttons: [<Button
         action="post"
-        target="/tokens"
+        target={{ query: { disconnect: 'false' } }}
       >
-        ERC20
-      </Button>,
-      <Button
-        action="post"
-        target="/uniswap"
-      >
-        Uniswap
-      </Button>,
-      <Button
-        action="post"
-        target="/tokens"
-      >
-        trend
-      </Button>,
-      <Button
-        action="post"
-        target={{ query: { disconnect: "true" } }}
-      >
-        Disconnect
-      </Button>,
-    ];
-  } else {
-    textInput = "Wallet address";
+        Connect
+      </Button>],
+      accepts: [{
+        id: 'farcaster',
+        version: 'vNext'
+      }, {
+        id: 'xmtp',
+        version: 'vNext'
+      }],
+    };
   }
+
   return {
     image: (
       <div tw="flex flex-col">
@@ -79,11 +65,32 @@ const handleRequest = frames(async (ctx) => {
           <div>👛 Disconnect Wallet</div>
         </div>}
         {!address && <div tw="flex flex-row"> 👛 Connect your wallet to use the app or specify a wallet</div>}
-
       </div>
     ),
-    textInput,
-    buttons,
+    buttons: [<Button
+      action="post"
+      target="/tokens"
+    >
+      ERC20
+    </Button>,
+    <Button
+      action="post"
+      target="/uniswap"
+    >
+      Uniswap
+    </Button>,
+    <Button
+      action="post"
+      target="/tokens"
+    >
+      trend
+    </Button>,
+    <Button
+      action="post"
+      target={{ query: { disconnect: "true" } }}
+    >
+      Disconnect
+    </Button>],
     accepts: [{
       id: 'farcaster',
       version: 'vNext'
