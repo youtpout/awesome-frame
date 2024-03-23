@@ -12,7 +12,7 @@ init(process.env.AIRSTACK_API_KEY || "");
 const totalPages = 5;
 
 const frames = createFrames({
-  basePath: "/frames",
+  basePath: "/frames/token",
 });
 
 const handleRequest = frames(async (ctx) => {
