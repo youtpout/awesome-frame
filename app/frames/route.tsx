@@ -45,6 +45,13 @@ const handleRequest = frames(async (ctx) => {
         Connect
       </Button>,
     ],
+    accepts: [{
+      id: 'farcaster',
+      version: 'vNext'
+    }, {
+      id: 'xmtp',
+      version: 'vNext'
+    }]
   };
 });
 
