@@ -7,7 +7,11 @@ const frames = createFrames({
   basePath: "/frames",
 });
 
+const defaultAddress = "0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a";
+
 const handleRequest = frames(async (ctx) => {
+
+  console.log(ctx);
 
   return {
     image: (
@@ -18,6 +22,7 @@ const handleRequest = frames(async (ctx) => {
         <div>Connect Wallet</div>
       </div>
     ),
+    textInput: "Wallet address",
     buttons: [
       <Button
         action="post"
@@ -39,11 +44,10 @@ const handleRequest = frames(async (ctx) => {
       </Button>,
       <Button
         action="post"
-        target="/tokens"
       >
         Connect
       </Button>,
-    ]
+    ],
   };
 });
 
