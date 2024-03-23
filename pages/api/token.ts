@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const fid = req.query?.fid;
 
-
+    console.log("fid", fid);
     try {
         if (fid) {
             const input: FarcasterUserERC20BalancesInput = {
@@ -33,6 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             );
             console.timeEnd("token");
             tokens = data! || [];
+            console.log("tokens length", tokens.length);
             return res.status(200).json(tokens);
         } else {
 
