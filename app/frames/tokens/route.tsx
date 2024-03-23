@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
+import { init } from "@airstack/frames";
 
+init(process.env.AIRSTACK_API_KEY || "");
 const totalPages = 5;
 
 const frames = createFrames({
