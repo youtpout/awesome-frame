@@ -23,7 +23,7 @@ const handleRequest = frames(async (ctx) => {
     buttons: [
       <Button
         action="post"
-        target="/frames/tokens"
+        target="/tokens"
       >
         ERC20
       </Button>,
