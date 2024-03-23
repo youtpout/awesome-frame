@@ -5,6 +5,7 @@ import {
   FarcasterUserERC20BalancesInput,
   FarcasterUserERC20BalancesOutput,
   TokenBlockchain,
+  FarcasterUserERC20BalancesOutputData,
 } from "@airstack/frames";
 
 init(process.env.AIRSTACK_API_KEY || "");
@@ -17,6 +18,7 @@ const frames = createFrames({
 const handleRequest = frames(async (ctx) => {
   const pageIndex = Number(ctx.searchParams.pageIndex || 0);
 
+  let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
   try {
     const input: FarcasterUserERC20BalancesInput = {
       fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
@@ -38,22 +40,24 @@ const handleRequest = frames(async (ctx) => {
     }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
       input
     );
-
+    tokens = data! || [];
     console.log(data);
   } catch (error) {
 
     console.log(error);
   }
 
-
+  const listItems = tokens.map((data) =>
+    <li>{data?.name}</li>
+  );
 
 
   return {
     image: (
       <div tw="flex flex-col">
-        <div>Token1</div>
-        <div>Token2</div>
-        <div>Token3</div>
+        <ul tw="flex flex-col">
+          {listItems}
+        </ul>
       </div>
     ),
     buttons: [
