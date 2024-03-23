@@ -7,13 +7,10 @@ import {
   TokenBlockchain,
   FarcasterUserERC20BalancesOutputData,
 } from "@airstack/frames";
+import { frames } from "../frames";
 
 init(process.env.AIRSTACK_API_KEY || "");
 const totalPages = 5;
-
-const frames = createFrames({
-  basePath: "/frames",
-});
 
 const handleRequest = frames(async (ctx) => {
   const pageIndex = Number(ctx.searchParams.pageIndex || 0);

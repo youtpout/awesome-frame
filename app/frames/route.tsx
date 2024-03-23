@@ -1,11 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-
-const totalPages = 5;
-
-const frames = createFrames({
-  basePath: "/frames",
-});
+import { frames } from "./frames";
 
 const defaultAddress = "0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a";
 
