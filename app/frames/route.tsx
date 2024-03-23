@@ -32,6 +32,10 @@ const handleRequest = frames(async (ctx) => {
 
   if (!address) {
     return {
+      headers: {
+        // Max cache age of 5 seconds
+        "Cache-Control": "max-age=5",
+      },
       image: (
         <div tw="flex flex-col">
           👛 Connect your wallet to use the app or specify a wallet
