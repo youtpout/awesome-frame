@@ -8,32 +8,56 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     init(process.env.AIRSTACK_API_KEY || "");
     try {
-        const input: FarcasterUserERC20BalancesInput = {
-            fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
-            chains: [
-                TokenBlockchain.Ethereum,
-                TokenBlockchain.Polygon,
-                TokenBlockchain.Base,
-                TokenBlockchain.Zora,
-            ],
-            limit: 50,
-        };
-        console.time("token");
-        const {
-            data,
-            error,
-            hasNextPage,
-            hasPrevPage,
-            getNextPage,
-            getPrevPage,
-        }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
-            input
-        );
-        console.timeEnd("token");
-        tokens = data! || [];
-        console.log(data);
+        // const input: FarcasterUserERC20BalancesInput = {
+        //     fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
+        //     chains: [
+        //         TokenBlockchain.Ethereum,
+        //         TokenBlockchain.Polygon,
+        //         TokenBlockchain.Base,
+        //         TokenBlockchain.Zora,
+        //     ],
+        //     limit: 50,
+        // };
+        // console.time("token");
+        // const {
+        //     data,
+        //     error,
+        //     hasNextPage,
+        //     hasPrevPage,
+        //     getNextPage,
+        //     getPrevPage,
+        // }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
+        //     input
+        // );
+        // console.timeEnd("token");
+        // tokens = data! || [];
+        // console.log(data);
 
-        res.status(200).json(tokens);
+        res.status(200).json([
+            {
+                blockchain: 'ethereum',
+                tokenAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+                amount: 125,
+                amountInWei: '125000000',
+                name: 'USD Coin',
+                symbol: 'USDC'
+            },
+            {
+                blockchain: 'ethereum',
+                tokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+                amount: 0.001,
+                amountInWei: '1000000000000000',
+                name: 'Wrapped Ether',
+                symbol: 'WETH'
+            },
+            {
+                blockchain: 'polygon',
+                tokenAddress: '0x10503dbed34e291655100a3c204528425abe3235',
+                amount: 750,
+                amountInWei: '750000000000000000000',
+                name: 'am00r',
+                symbol: 'AM00R'
+            },]);
     } catch (error) {
 
         console.log(error);
