@@ -20,9 +20,10 @@ const handleRequest = frames(async (ctx) => {
       "/api/token?fid=" + fid,
       vercelURL() || "http://localhost:3000"
     )
+    console.log("called url",url);
     const callApi = await fetch(url);
     tokens = await callApi.json();
-    console.log("tokens", tokens);
+    console.log("tokens getted", tokens.length);
 
     const listItems = tokens.map((data, index) =>
       <div key={index} tw="flex flex-row justify-between"> <span>{index + 1}°</span> <span>{data?.amount} {data?.symbol}</span></div>
