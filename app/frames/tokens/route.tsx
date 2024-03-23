@@ -16,35 +16,35 @@ const handleRequest = frames(async (ctx) => {
   const pageIndex = Number(ctx.searchParams.pageIndex || 0);
 
   let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
-  try {
-    const input: FarcasterUserERC20BalancesInput = {
-      fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
-      chains: [
-        TokenBlockchain.Ethereum,
-        TokenBlockchain.Polygon,
-        TokenBlockchain.Base,
-        TokenBlockchain.Zora,
-      ],
-      limit: 50,
-    };
-    console.time("token");
-    const {
-      data,
-      error,
-      hasNextPage,
-      hasPrevPage,
-      getNextPage,
-      getPrevPage,
-    }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
-      input
-    );
-    console.timeEnd("token");
-    tokens = data! || [];
-    console.log(data);
-  } catch (error) {
+  // try {
+  //   const input: FarcasterUserERC20BalancesInput = {
+  //     fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
+  //     chains: [
+  //       TokenBlockchain.Ethereum,
+  //       TokenBlockchain.Polygon,
+  //       TokenBlockchain.Base,
+  //       TokenBlockchain.Zora,
+  //     ],
+  //     limit: 50,
+  //   };
+  //   console.time("token");
+  //   const {
+  //     data,
+  //     error,
+  //     hasNextPage,
+  //     hasPrevPage,
+  //     getNextPage,
+  //     getPrevPage,
+  //   }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
+  //     input
+  //   );
+  //   console.timeEnd("token");
+  //   tokens = data! || [];
+  //   console.log(data);
+  // } catch (error) {
 
-    console.log(error);
-  }
+  //   console.log(error);
+  // }
 
   const listItems = tokens.map((data) =>
     <li key={data?.tokenAddress}>{data?.name}</li>
