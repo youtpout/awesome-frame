@@ -23,13 +23,12 @@ const handleRequest = frames(async (ctx) => {
     const input: FarcasterUserERC20BalancesInput = {
       fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
       chains: [
-        TokenBlockchain.Ethereum,
-        TokenBlockchain.Polygon,
-        TokenBlockchain.Base,
-        TokenBlockchain.Zora,
+        TokenBlockchain.Ethereum
       ],
-      limit: 100,
+      limit: 10,
     };
+    console.time("start token");
+    console.time("token");
     const {
       data,
       error,
@@ -40,6 +39,7 @@ const handleRequest = frames(async (ctx) => {
     }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
       input
     );
+    console.timeEnd("token");
     tokens = data! || [];
     console.log(data);
   } catch (error) {
