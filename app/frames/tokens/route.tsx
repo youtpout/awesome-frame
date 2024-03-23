@@ -1,6 +1,11 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-import { init } from "@airstack/frames";
+import {
+  init, getFarcasterUserERC20Balances,
+  FarcasterUserERC20BalancesInput,
+  FarcasterUserERC20BalancesOutput,
+  TokenBlockchain,
+} from "@airstack/frames";
 
 init(process.env.AIRSTACK_API_KEY || "");
 const totalPages = 5;
@@ -11,6 +16,36 @@ const frames = createFrames({
 
 const handleRequest = frames(async (ctx) => {
   const pageIndex = Number(ctx.searchParams.pageIndex || 0);
+
+  try {
+    const input: FarcasterUserERC20BalancesInput = {
+      fid: Number(process.env.FARCASTER_DEVELOPER_FID || 602),
+      chains: [
+        TokenBlockchain.Ethereum,
+        TokenBlockchain.Polygon,
+        TokenBlockchain.Base,
+        TokenBlockchain.Zora,
+      ],
+      limit: 100,
+    };
+    const {
+      data,
+      error,
+      hasNextPage,
+      hasPrevPage,
+      getNextPage,
+      getPrevPage,
+    }: FarcasterUserERC20BalancesOutput = await getFarcasterUserERC20Balances(
+      input
+    );
+
+    console.log(data);
+  } catch (error) {
+
+    console.log(error);
+  }
+
+
 
 
   return {
