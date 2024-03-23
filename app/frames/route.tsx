@@ -11,15 +11,17 @@ const defaultAddress = "0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a";
 
 const handleRequest = frames(async (ctx) => {
 
-  console.log(ctx);
+  console.log(ctx.message);
 
+  const address = ctx.message?.inputText || defaultAddress;
   return {
     image: (
       <div tw="flex flex-col">
-        <div>ERC20</div>
-        <div>Uniswap Liquidities</div>
-        <div>Trend tokens</div>
-        <div>Connect Wallet</div>
+        <div tw="flex flex-row">Wallet : {address}</div>
+        <div>💰 ERC20</div>
+        <div>🦄 Uniswap Liquidities</div>
+        <div>🔥 Trend tokens</div>
+        <div>👛 Connect Wallet</div>
       </div>
     ),
     textInput: "Wallet address",

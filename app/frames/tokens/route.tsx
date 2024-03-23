@@ -10,32 +10,48 @@ const frames = createFrames({
 const handleRequest = frames(async (ctx) => {
   const pageIndex = Number(ctx.searchParams.pageIndex || 0);
 
-  
+
   return {
     image: (
       <div tw="flex flex-col">
-        My tokens
+        <div>Token1</div>
+        <div>Token2</div>
+        <div>Token3</div>
       </div>
     ),
     buttons: [
       <Button
         action="post"
-        target={{
-          query: { pageIndex: (pageIndex - 1) % totalPages },
-        }}
+        target="/"
       >
-        ←
+        ← back
       </Button>,
       <Button
         action="post"
-        target={{
-          query: { pageIndex: (pageIndex + 1) % totalPages },
-        }}
+        target="{{
+          query: { token: 1 },
+        }}"
       >
-        →
+        Token 1
+      </Button>,
+      <Button
+        action="post"
+        target="{{
+        query: { token: 1 },
+      }}"
+      >
+        Token 2
+      </Button>,
+      <Button
+        action="post"
+        target="{{
+      query: { token: 2 },
+    }}"
+      >
+        Execute
       </Button>,
     ],
-    textInput: "Type something!",
+    textInput: "Action",
   };
 });
 
