@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     TokenBlockchain.Ethereum,
                     TokenBlockchain.Base
                 ],
-                limit: 10,
+                limit: 8,
             };
             console.time("token");
             const {

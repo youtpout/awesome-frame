@@ -14,23 +14,14 @@ const handleRequest = frames(async (ctx) => {
 
   // do some logic to determine the next frame
 
-  let fid: number | undefined = ctx.message?.castId?.fid;
-  let walletAddress: string | undefined;
-
-  if (ctx.message?.requesterVerifiedAddresses?.length) {
-    walletAddress = ctx.message.requesterVerifiedAddresses[0];
-  } else {
-    walletAddress = ctx.message?.requesterCustodyAddress;
-  }
-
-  let address = ctx.message?.inputText || walletAddress;
+  let name = ctx.message?.requesterUserData?.displayName;
 
   if (ctx.searchParams.disconnect === 'true') {
-    address = "";
+    name = "";
   }
 
 
-  if (!address) {
+  if (!name) {
     return {
       headers: {
         // Max cache age of 5 seconds
@@ -38,10 +29,9 @@ const handleRequest = frames(async (ctx) => {
       },
       image: (
         <div tw="flex flex-col">
-          👛 Connect your wallet to use the app or specify a wallet
+          ⚡ Connect your account to manage your portfolio on base
         </div>
       ),
-      textInput: "Wallet address",
       buttons: [<Button
         action="post"
         target={{ query: { disconnect: 'false' } }}
@@ -61,14 +51,12 @@ const handleRequest = frames(async (ctx) => {
   return {
     image: (
       <div tw="flex flex-col">
-        {address && <div tw="flex flex-col">
-          <div tw="flex flex-row">Wallet : {address}</div>
+        <div tw="flex flex-col">
+          <div tw="flex mb-5 text-blue-500 text-7xl font-bold">Welcome {name}</div>
           <div>💰 ERC20</div>
-          <div>🦄 Uniswap Liquidities</div>
+          <div>🦄 Uniswap positions</div>
           <div>🔥 Trend tokens</div>
-          <div>👛 Disconnect Wallet</div>
-        </div>}
-        {!address && <div tw="flex flex-row"> 👛 Connect your wallet to use the app or specify a wallet</div>}
+        </div>
       </div>
     ),
     buttons: [<Button
@@ -88,12 +76,6 @@ const handleRequest = frames(async (ctx) => {
       target="/tokens"
     >
       trend
-    </Button>,
-    <Button
-      action="post"
-      target={{ query: { disconnect: "true" } }}
-    >
-      Disconnect
     </Button>],
     accepts: [{
       id: 'farcaster',

@@ -26,14 +26,14 @@ const handleRequest = frames(async (ctx) => {
     console.log("tokens getted", tokens.length);
 
     const listItems = tokens.map((data, index) =>
-      <div key={index} tw="flex flex-row justify-between"> <span>{index + 1}°</span> <span>{data?.amount} {data?.symbol}</span></div>
+      <div key={index} tw="flex flex-row"> <span tw="ml-5">{index + 1}</span> <span  tw="ml-5">{data?.amount} {data?.symbol}</span> <span  tw="ml-5">{data?.name}</span></div>
     );
 
 
     return {
       image: (
         <div tw="flex flex-col">
-          <span>List</span>
+          <span tw="text-blue-500 mb-5">Set token number and click and more info to manage it</span>
           <div tw="flex flex-col">
             {listItems}
           </div>
