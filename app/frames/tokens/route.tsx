@@ -50,7 +50,7 @@ const handleRequest = frames(async (ctx) => {
   }
 
   const listItems = tokens.map((data) =>
-    <li>{data?.name}</li>
+    <li key={data?.tokenAddress}>{data?.name}</li>
   );
 
 
