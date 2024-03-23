@@ -15,6 +15,6 @@ export function currentURL(pathname: string): URL {
 export function vercelURL() {
   // override vercelurl
   return process.env.VERCEL_URL
-    ? `${process.env.NEXT_PUBLIC_HOST}`
+    ? `https://${process.env.VERCEL_URL}`
     : undefined;
 }
