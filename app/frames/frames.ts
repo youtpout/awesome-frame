@@ -1,5 +1,3 @@
 import { createFrames } from "frames.js/next";
 
-export const frames = createFrames({
-  basePath: "/frames",
-});
+export const frames = createFrames();

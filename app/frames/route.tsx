@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
+import { frames } from "./frames";
+
 const defaultAddress = "0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a";
 
-const frames = createFrames();
 const handleRequest = frames(async (ctx) => {
 
   console.log(ctx.message);
