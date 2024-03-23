@@ -6,7 +6,7 @@ const defaultAddress = "0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a";
 
 const handleRequest = frames(async (ctx) => {
 
-  console.log(ctx.message);
+  console.log("context", JSON.stringify(ctx));
 
   const address = ctx.message?.inputText || defaultAddress;
   return {
