@@ -65,31 +65,7 @@ const handleRequest = frames(async (ctx) => {
         target="/"
       >
         ← back
-      </Button>,
-      <Button
-        action="post"
-        target="{{
-          query: { token: 1 },
-        }}"
-      >
-        Token 1
-      </Button>,
-      <Button
-        action="post"
-        target="{{
-        query: { token: 1 },
-      }}"
-      >
-        Token 2
-      </Button>,
-      <Button
-        action="post"
-        target="{{
-      query: { token: 2 },
-    }}"
-      >
-        Execute
-      </Button>,
+      </Button>
     ],
     textInput: "Action",
   };

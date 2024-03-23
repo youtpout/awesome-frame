@@ -50,10 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-      
+     
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -67,5 +64,8 @@ jobs:
         with:
           app-name: 'awesome-frame'
           slot-name: 'Production'
-          package: .
+          package: release.zip
+
+      - name: Delete tar file
+        run: rm release.zip
           

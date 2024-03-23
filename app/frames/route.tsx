@@ -29,7 +29,7 @@ const handleRequest = frames(async (ctx) => {
       </Button>,
       <Button
         action="post"
-        target="/tokens"
+        target="/uniswap"
       >
         Uniswap
       </Button>,
