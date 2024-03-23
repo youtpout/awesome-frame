@@ -1,8 +1,9 @@
 import { init, FarcasterUserERC20BalancesInput, FarcasterUserERC20BalancesOutput, FarcasterUserERC20BalancesOutputData, TokenBlockchain, getFarcasterUserERC20Balances } from "@airstack/frames";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
 // req = HTTP incoming message, res = HTTP server response
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
 
     init(process.env.AIRSTACK_API_KEY || "");
