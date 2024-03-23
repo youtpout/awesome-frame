@@ -6,8 +6,8 @@ import { fetchMetadata } from "frames.js/next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "New api example",
-    description: "This is a new api example",
+    title: "Portfolio",
+    description: "Manage your portfolio",
     other: {
       ...(await fetchMetadata(
         new URL(
