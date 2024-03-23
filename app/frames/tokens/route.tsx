@@ -12,6 +12,9 @@ const handleRequest = frames(async (ctx) => {
   try {
     let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
 
+
+    console.log("message", ctx.message);
+
     var url = new URL(
       "/api/token",
       vercelURL() || "http://localhost:3000"
@@ -42,6 +45,13 @@ const handleRequest = frames(async (ctx) => {
         </Button>
       ],
       textInput: "Action",
+      accepts: [{
+        id: 'farcaster',
+        version: 'vNext'
+      }, {
+        id: 'xmtp',
+        version: 'vNext'
+      }]
     };
   } catch (error) {
     console.log(error);
@@ -61,6 +71,13 @@ const handleRequest = frames(async (ctx) => {
         </Button>
       ],
       textInput: "Action",
+      accepts: [{
+        id: 'farcaster',
+        version: 'vNext'
+      }, {
+        id: 'xmtp',
+        version: 'vNext'
+      }]
     };
   }
 
