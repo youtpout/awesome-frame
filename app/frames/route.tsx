@@ -10,46 +10,36 @@ const handleRequest = frames(async (ctx) => {
 
   console.log("message", ctx.message);
 
-  const previousFrame = getPreviousFrame(ctx.searchParams);
+  console.log("disco", ctx.searchParams);
 
   // do some logic to determine the next frame
 
-  let fid: number | undefined;
+  let fid: number | undefined = ctx.message?.castId?.fid;
   let walletAddress: string | undefined;
 
-  if (
-    previousFrame.postBody &&
-    isXmtpFrameActionPayload(previousFrame.postBody)
-  ) {
-    const frameMessage = await getXmtpFrameMessage(previousFrame.postBody);
-    walletAddress = frameMessage?.verifiedWalletAddress;
+  if (ctx.message?.requesterVerifiedAddresses?.length) {
+    walletAddress = ctx.message.requesterVerifiedAddresses[0];
   } else {
-    const frameMessage = await getFrameMessage(previousFrame.postBody);
-    if (frameMessage && frameMessage?.isValid) {
-      fid = frameMessage?.requesterFid;
-      walletAddress =
-        frameMessage?.requesterCustodyAddress.length > 0
-          ? frameMessage?.requesterCustodyAddress
-          : frameMessage.requesterCustodyAddress;
-    }
+    walletAddress = ctx.message?.requesterCustodyAddress;
   }
 
-  console.log("walletAddress", walletAddress);
+  let address = ctx.message?.inputText || walletAddress;
 
+  if (ctx.searchParams.disconnect === 'true') {
+    address = "";
+  }
 
-  const address = ctx.message?.inputText || defaultAddress;
-  return {
-    image: (
-      <div tw="flex flex-col">
-        <div tw="flex flex-row">Wallet : {address}</div>
-        <div>💰 ERC20</div>
-        <div>🦄 Uniswap Liquidities</div>
-        <div>🔥 Trend tokens</div>
-        <div>👛 Connect Wallet</div>
-      </div>
-    ),
-    textInput: "Wallet address",
-    buttons: [
+  let textInput = "";
+
+  let buttons = [
+    <Button
+      action="post"
+      target={{ query: { disconnect: 'false' } }}
+    >
+      Connect
+    </Button>];
+  if (address) {
+    buttons = [
       <Button
         action="post"
         target="/tokens"
@@ -70,10 +60,30 @@ const handleRequest = frames(async (ctx) => {
       </Button>,
       <Button
         action="post"
+        target={{ query: { disconnect: "true" } }}
       >
-        Connect
+        Disconnect
       </Button>,
-    ],
+    ];
+  } else {
+    textInput = "Wallet address";
+  }
+  return {
+    image: (
+      <div tw="flex flex-col">
+        {address && <div tw="flex flex-col">
+          <div tw="flex flex-row">Wallet : {address}</div>
+          <div>💰 ERC20</div>
+          <div>🦄 Uniswap Liquidities</div>
+          <div>🔥 Trend tokens</div>
+          <div>👛 Disconnect Wallet</div>
+        </div>}
+        {!address && <div tw="flex flex-row"> 👛 Connect your wallet to use the app or specify a wallet</div>}
+
+      </div>
+    ),
+    textInput,
+    buttons,
     accepts: [{
       id: 'farcaster',
       version: 'vNext'
