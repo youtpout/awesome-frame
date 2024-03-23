@@ -22,7 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const url = currentURL("/");
 
-
+  console.log("vercel", vercelURL());
+  console.log("currentURL", url);
   return (
     <div>
       Multi-page example
