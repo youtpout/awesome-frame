@@ -8,42 +8,34 @@ const frames = createFrames({
 });
 
 const handleRequest = frames(async (ctx) => {
+  const pageIndex = Number(ctx.searchParams.pageIndex || 0);
 
+  
   return {
     image: (
       <div tw="flex flex-col">
-        <div>ERC20</div>
-        <div>Uniswap Liquidities</div>
-        <div>Trend tokens</div>
-        <div>Connect Wallet</div>
+        My tokens
       </div>
     ),
     buttons: [
       <Button
         action="post"
-        target="/tokens"
+        target={{
+          query: { pageIndex: (pageIndex - 1) % totalPages },
+        }}
       >
-        ERC20
+        ←
       </Button>,
       <Button
         action="post"
-        target="/tokens"
+        target={{
+          query: { pageIndex: (pageIndex + 1) % totalPages },
+        }}
       >
-        Uniswap
+        →
       </Button>,
-      <Button
-        action="post"
-        target="/tokens"
-      >
-        trend
-      </Button>,
-      <Button
-        action="post"
-        target="/tokens"
-      >
-        Connect
-      </Button>,
-    ]
+    ],
+    textInput: "Type something!",
   };
 });
 
