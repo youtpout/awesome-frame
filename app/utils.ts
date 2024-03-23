@@ -14,7 +14,7 @@ export function currentURL(pathname: string): URL {
 
 export function vercelURL() {
   // override vercelurl
-  return process.env.APP_URL
-    ? `https://${process.env.APP_URL}`
+  return process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
     : undefined;
 }
