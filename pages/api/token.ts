@@ -15,6 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const input: FarcasterUserERC20BalancesInput = {
                 fid: Number(fid),
                 chains: [
+                    TokenBlockchain.Ethereum,
                     TokenBlockchain.Base
                 ],
                 limit: 10,
