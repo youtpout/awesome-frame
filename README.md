@@ -1,6 +1,14 @@
-# Frames.js Starter Kit
+# Project Description
 
-This is a boilerplate repo to get started quickly with `frames.js`
+A frame to manage your portfolio on base:
+
+You can manage your ERC20 on base, buy more or sell it on uniswap get token info,
+Buy degen token from arbitrum/base/optimism directly from the app with ethreume
+See trend token on base, see information about it and buy it on uniswap.
+
+## How it's Made
+
+Built from frame.js template with nextjs, implements the openframe standard. I use airstack to retrieve user balance and trend token on base from next router api I use onthis.xyz shortcut to swap Degen token from optimism/base/arbitrum. Tested on warpcast developer frames with trust wallet.
 
 ## Quickstart
 
