@@ -53,7 +53,7 @@ const handleRequest = frames(async (ctx) => {
       <div tw="flex flex-col">
         <div tw="flex flex-col">
           <div tw="flex mb-5 text-blue-500 text-7xl font-bold">Welcome {name}</div>
-          <div>💰 ERC20</div>
+          <div>🪙 ERC20</div>
           <div>🦄 Uniswap positions</div>
           <div>🔥 Trend tokens</div>
         </div>
@@ -63,19 +63,19 @@ const handleRequest = frames(async (ctx) => {
       action="post"
       target="/tokens"
     >
-      ERC20
+      🪙 ERC20
     </Button>,
     <Button
       action="post"
       target="/uniswap"
     >
-      Uniswap
+      🦄 Uniswap
     </Button>,
     <Button
       action="post"
-      target="/tokens"
+      target="/trend"
     >
-      trend
+      🔥 Trend
     </Button>],
     accepts: [{
       id: 'farcaster',
