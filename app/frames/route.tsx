@@ -10,7 +10,7 @@ const handleRequest = frames(async (ctx) => {
     console.log("message", ctx.message);
     console.log("disco", ctx.searchParams);
 
-    let name = ctx.message?.requesterUserData?.displayName;
+    name = ctx.message?.requesterUserData?.displayName || "";
 
     if (ctx.searchParams.disconnect === 'true') {
       name = "";
