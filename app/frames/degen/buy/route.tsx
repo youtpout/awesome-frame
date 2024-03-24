@@ -2,90 +2,51 @@
 import { createFrames, Button } from "frames.js/next";
 import { frames } from "../../frames";
 import { acceptedProtocols } from "../../../utils";
+import { NextRequest, NextResponse } from "next/server";
+import { TransactionTargetResponse, getFrameMessage } from "frames.js";
+import { ethers } from "ethers";
 
+export async function POST(
+  req: NextRequest
+): Promise<NextResponse<any>> {
+  const json = await req.json();
 
-const handleRequest = frames(async (ctx) => {
-  try {
+  const frameMessage = await getFrameMessage(json);
+  console.log("json", json);
 
-    let chainId = ctx.searchParams?.chainId;
-    let address = ctx.searchParams?.address;
-
-
-    return {
-      image: (
-        <div tw="flex flex-col">
-          <div tw="flex mb-5 text-blue-500 text-7xl font-bold">
-            🔥 Buy trending token
-          </div>
-          <div tw="flex">
-            Name : {selectedToken.token.name}
-          </div>
-          <div tw="flex">
-            Symbol : {selectedToken.token.symbol}
-          </div>
-          <div tw="flex">
-            Decimals : {selectedToken.token.decimals}
-          </div>
-          <div tw="flex">
-            Supply : {supply.toString()}
-          </div>
-          <div tw="flex">
-            Holders : {selectedToken.uniqueHolders}
-          </div>
-        </div>
-      ),
-      buttons: [
-        <Button
-          action="post"
-          target="/trend"
-        >
-          ← back
-        </Button>,
-        <Button
-          action="post"
-          target="/"
-        >
-          🏠 Home
-        </Button>,
-        <Button
-          action="link"
-          target={`https://app.uniswap.org/#/swap?outputCurrency=${selectedToken.address}&chain=base`}
-        >
-          Buy on uniswap
-        </Button >
-      ],
-      accepts: acceptedProtocols
-    };
-  } catch (error) {
-    console.log(error);
-
-    return {
-      image: (
-        <div tw="flex flex-col">
-          An error happened
-        </div>
-      ),
-      buttons: [
-        <Button
-          action="post"
-          target="/degen"
-        >
-          ← back
-        </Button>,
-        <Button
-          action="post"
-          target="/"
-        >
-          🏠 Home
-        </Button>
-
-      ],
-      textInput: "Action",
-      accepts: acceptedProtocols
-    };
+  if (!frameMessage?.inputText) {
+    throw new Error("No amount");
   }
 
+  let address = "0x17b217d4b29063c96d59d5a54211582bee9cfb0d";
+  let chainId = "8453";
+  if (frameMessage.buttonIndex === 2) {
+    address = "0x17b217d4b29063c96d59d5a54211582bee9cfb0d";
+    chainId = "8453";
+  } else if (frameMessage.buttonIndex === 3) {
+    address = "0xe24a513c4489589b6af5fb84154f9ddb17d08d2f";
+    chainId = "10";
+  }
+  else if (frameMessage.buttonIndex === 4) {
+    address = "0xa68ed47bdc0c72b5ddde63fb9295f336ec9541b8";
+    chainId = "42161";
+  }
+  else {
+    throw new Error("Invalid button");
+  }
 
-});
+  console.log(frameMessage);
 
-export const POST = handleRequest;
+  const amount = ethers.parseEther(frameMessage.inputText!);
+
+  return NextResponse.json({
+    chainId: "eip155:10", // OP Mainnet 10
+    method: "eth_sendTransaction",
+    params: {
+      to: address,
+      data: "",
+      value: amount.toString(),
+      chainId: chainId
+    },
+  });
+}

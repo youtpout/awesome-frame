@@ -13,7 +13,7 @@ const handleRequest = frames(async (ctx) => {
     image: (
       <div tw="flex flex-col">
         <div tw="flex mb-5 text-blue-500 text-7xl font-bold">
-          💲Buy Degen from multichain to base
+          💲Buy Degen from anychain
         </div>
         <div>
           1 Buy from Base
@@ -26,7 +26,7 @@ const handleRequest = frames(async (ctx) => {
         </div>
       </div>
     ),
-    textInput:"Amount in ETH",
+    textInput: "Amount in ETH",
     buttons: [
       <Button
         action="post"
@@ -35,20 +35,19 @@ const handleRequest = frames(async (ctx) => {
         ← back
       </Button>,
       <Button
-        action="post"
-        target={{ query: { address: "0x17b217d4b29063c96d59d5a54211582bee9cfb0d", chainId :"8453" }, pathname: '/degen/buy' }}
+        action="tx"
+        target="/degen/buy"
       >
         Base
       </Button>,
       <Button
-        action="post"
-        target={{ query: { address: "0xe24a513c4489589b6af5fb84154f9ddb17d08d2f", chainId :"10"  }, pathname: '/degen/buy' }}
-      >
+        action="tx"
+        target="/degen/buy" >
         Optimism
       </Button>,
       <Button
-        action="post"
-        target={{ query: { address: "0xa68ed47bdc0c72b5ddde63fb9295f336ec9541b8", chainId :"42161"  }, pathname: '/degen/buy' }}
+        action="tx"
+        target="/degen/buy"
       >
         Arbitrum
       </Button>
