@@ -27,10 +27,13 @@ const handleRequest = frames(async (ctx) => {
       image: (
         <div tw="flex flex-col">
           <div tw="flex mb-5 text-blue-500 text-7xl font-bold">
-            🔥 Buy trending token
+            🛠️ Manage your token
           </div>
           <div tw="flex">
             Name : {selectedToken.token.name}
+          </div>
+          <div tw="flex">
+            Amount : {selectedToken.formattedAmount}
           </div>
           <div tw="flex">
             Symbol : {selectedToken.token.symbol}
@@ -41,15 +44,12 @@ const handleRequest = frames(async (ctx) => {
           <div tw="flex">
             Supply : {supply.toString()}
           </div>
-          <div tw="flex">
-            Holders : {selectedToken.uniqueHolders}
-          </div>
         </div>
       ),
       buttons: [
         <Button
           action="post"
-          target="/trend"
+          target="/tokens"
         >
           ← back
         </Button>,
@@ -61,9 +61,15 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="link"
-          target={`https://app.uniswap.org/#/swap?outputCurrency=${selectedToken.address}&chain=base`}
+          target={`https://app.uniswap.org/#/swap?inputCurrency=${selectedToken.tokenAddress}&chain=base`}
         >
-          Buy on uniswap
+          Sell
+        </Button >,
+        <Button
+          action="link"
+          target={`https://app.uniswap.org/#/swap?outputCurrency=${selectedToken.tokenAddress}&chain=base`}
+        >
+          Buy more
         </Button >
       ],
       accepts: [{

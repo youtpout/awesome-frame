@@ -25,6 +25,8 @@ const handleRequest = frames(async (ctx) => {
     tokens = await callApi.json();
     console.log("tokens getted", tokens.length);
 
+    var data = JSON.stringify(tokens);
+
     const listItems = tokens.map((data, index) =>
       <div key={index} tw="flex flex-row"> <span tw="ml-5">{index + 1}</span> <span  tw="ml-5">{data?.formattedAmount} {data?.token?.symbol}</span> <span  tw="ml-5">{data?.token?.name}</span></div>
     );
@@ -48,6 +50,7 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="post"
+          target={{ query: { tokens: data }, pathname:'/tokens/manage' }}
         >
           Manage
         </Button>
