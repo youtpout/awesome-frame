@@ -45,7 +45,7 @@ const handleRequest = frames(async (ctx) => {
         <div tw="flex flex-col">
           <div tw="flex mb-5 text-blue-500 text-7xl font-bold">Welcome {name}</div>
           <div>🪙 ERC20</div>
-          <div>🦄 Uniswap positions</div>
+          <div>💲 Buy Degen</div>
           <div>🔥 Trend tokens</div>
         </div>
       </div>
@@ -58,9 +58,9 @@ const handleRequest = frames(async (ctx) => {
     </Button>,
     <Button
       action="post"
-      target="/uniswap"
+      target="/degen"
     >
-      🦄 Uniswap
+      💲 Degen
     </Button>,
     <Button
       action="post"
