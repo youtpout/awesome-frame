@@ -4,9 +4,6 @@ import { getXmtpFrameMessage, isXmtpFrameActionPayload } from "frames.js/xmtp";
 
 export const frames = createFrames({
   basePath: "/frames",
-  initialState: {
-    pageIndex: 0,
-  },
   middleware: [
     farcasterHubContext({
       hubHttpUrl: process.env.DEFAULT_DEBUGGER_HUB_URL,
