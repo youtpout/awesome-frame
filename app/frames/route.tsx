@@ -5,17 +5,19 @@ import { acceptedProtocols } from "../utils";
 
 const handleRequest = frames(async (ctx) => {
 
-  console.log("message", ctx.message);
+  let name = "toto";
 
-  console.log("disco", ctx.searchParams);
+  // console.log("message", ctx.message);
 
-  // do some logic to determine the next frame
+  // console.log("disco", ctx.searchParams);
 
-  let name = ctx.message?.requesterUserData?.displayName;
+  // // do some logic to determine the next frame
 
-  if (ctx.searchParams.disconnect === 'true') {
-    name = "";
-  }
+  // let name = ctx.message?.requesterUserData?.displayName;
+
+  // if (ctx.searchParams.disconnect === 'true') {
+  //   name = "";
+  // }
 
 
   if (!name) {
