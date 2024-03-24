@@ -44,7 +44,7 @@ const handleRequest = frames(async (ctx) => {
       <div tw="flex flex-col">
         <div tw="flex flex-col">
           <div tw="flex mb-5 text-blue-500 text-7xl font-bold">Welcome {name}</div>
-          <div>🪙 ERC20</div>
+          <div>🪙 Manage ERC20</div>
           <div>💲 Buy Degen</div>
           <div>🔥 Trend tokens</div>
         </div>
