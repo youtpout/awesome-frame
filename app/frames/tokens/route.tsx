@@ -10,9 +10,9 @@ const totalPages = 5;
 
 const handleRequest = frames(async (ctx) => {
   try {
-    let tokens: (FarcasterUserERC20BalancesOutputData | null)[] = [];
+    let tokens: any[] = [];
 
-    let fid: number | undefined = ctx.message?.castId?.fid;
+    let fid: number | undefined = ctx.message?.requesterFid;
 
     console.log("message", ctx.message);
 
@@ -26,7 +26,7 @@ const handleRequest = frames(async (ctx) => {
     console.log("tokens getted", tokens.length);
 
     const listItems = tokens.map((data, index) =>
-      <div key={index} tw="flex flex-row"> <span tw="ml-5">{index + 1}</span> <span  tw="ml-5">{data?.amount} {data?.symbol}</span> <span  tw="ml-5">{data?.name}</span></div>
+      <div key={index} tw="flex flex-row"> <span tw="ml-5">{index + 1}</span> <span  tw="ml-5">{data?.formattedAmount} {data?.token?.symbol}</span> <span  tw="ml-5">{data?.token?.name}</span></div>
     );
 
 
@@ -49,7 +49,7 @@ const handleRequest = frames(async (ctx) => {
         <Button
           action="post"
         >
-          More info
+          Manage
         </Button>
       ],
       textInput: "Select token number",
