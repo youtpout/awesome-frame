@@ -31,7 +31,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }`;
 
+    console.time("trend");
     const { data, error } = await fetchQuery(query);
+    console.timeEnd("trend");
 
     if (data?.TrendingTokens?.TrendingToken) {
       return res.status(200).json(data.TrendingTokens.TrendingToken);
