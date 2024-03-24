@@ -1,12 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-
 import { frames } from "../../frames";
-import { FarcasterUserERC20BalancesOutputData } from "@airstack/frames";
-import { getPreviousFrame } from "frames.js/next/server";
+import { acceptedProtocols } from "../../../utils";
 
-
-const totalPages = 5;
 
 const handleRequest = frames(async (ctx) => {
   try {
@@ -66,13 +62,7 @@ const handleRequest = frames(async (ctx) => {
           Buy on uniswap
         </Button >
       ],
-      accepts: [{
-        id: 'farcaster',
-        version: 'vNext'
-      }, {
-        id: 'xmtp',
-        version: 'vNext'
-      }]
+      accepts: acceptedProtocols
     };
   } catch (error) {
     console.log(error);
@@ -99,13 +89,7 @@ const handleRequest = frames(async (ctx) => {
 
       ],
       textInput: "Action",
-      accepts: [{
-        id: 'farcaster',
-        version: 'vNext'
-      }, {
-        id: 'xmtp',
-        version: 'vNext'
-      }]
+      accepts: acceptedProtocols
     };
   }
 

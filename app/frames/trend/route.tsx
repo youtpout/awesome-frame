@@ -1,13 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-
 import { frames } from "../frames";
-import { vercelURL } from "../../utils";
-import { FarcasterUserERC20BalancesOutputData } from "@airstack/frames";
-import { getPreviousFrame } from "frames.js/next/server";
-
-
-const totalPages = 5;
+import { acceptedProtocols, vercelURL } from "../../utils";
 
 const handleRequest = frames(async (ctx) => {
   try {
@@ -49,19 +43,13 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="post"
-          target={{ query: { tokens: data }, pathname:'/trend/buy' }}
+          target={{ query: { tokens: data }, pathname: '/trend/buy' }}
         >
           Buy
         </Button >
       ],
       textInput: "Select token number",
-      accepts: [{
-        id: 'farcaster',
-        version: 'vNext'
-      }, {
-        id: 'xmtp',
-        version: 'vNext'
-      }]
+      accepts: acceptedProtocols
     };
   } catch (error) {
     console.log(error);
@@ -82,13 +70,7 @@ const handleRequest = frames(async (ctx) => {
 
       ],
       textInput: "Action",
-      accepts: [{
-        id: 'farcaster',
-        version: 'vNext'
-      }, {
-        id: 'xmtp',
-        version: 'vNext'
-      }]
+      accepts: acceptedProtocols
     };
   }
 

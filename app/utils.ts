@@ -1,3 +1,4 @@
+import { ClientProtocolId } from "frames.js";
 import { headers } from "next/headers";
 
 export function currentURL(pathname: string): URL {
@@ -18,3 +19,14 @@ export function vercelURL() {
     ? `https://${process.env.VERCEL_URL}`
     : undefined;
 }
+
+export const acceptedProtocols: ClientProtocolId[] = [
+  {
+    id: "xmtp",
+    version: "vNext",
+  },
+  {
+    id: "farcaster",
+    version: "vNext",
+  },
+]; 
