@@ -12,7 +12,7 @@ export async function POST(
   const json = await req.json();
 
   const frameMessage = await getFrameMessage(json);
-  console.log("json", json);
+  console.log("frameMessage", frameMessage);
 
   if (!frameMessage?.inputText) {
     throw new Error("No amount");
@@ -35,18 +35,15 @@ export async function POST(
     throw new Error("Invalid button");
   }
 
-  console.log(frameMessage);
-
   const amount = ethers.parseEther(frameMessage.inputText!);
 
   return NextResponse.json({
-    chainId: "eip155:10", // OP Mainnet 10
+    chainId: "eip155:" + chainId, // OP Mainnet 10
     method: "eth_sendTransaction",
     params: {
       to: address,
       data: "",
-      value: amount.toString(),
-      chainId: chainId
+      value: amount.toString()
     },
   });
 }
