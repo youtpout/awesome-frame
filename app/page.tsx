@@ -26,10 +26,7 @@ export default async function Home() {
   console.log("currentURL", url);
   return (
     <div>
-      Multi-page example
-      <Link href={createDebugUrl(url)} className="underline">
-        Debug
-      </Link>
+      Welcome to awesome-frame, integrate this url in compatible protocol to show the frame
     </div>
   );
 }
